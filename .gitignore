@@ -1,0 +1,6 @@
+# All environment files, except the sample
+.env*
+!.env.sample
+
+# The generated binary
+general-ledger-api*
