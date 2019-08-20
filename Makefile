@@ -1,3 +1,7 @@
+# ===================================
+# ======= Local Configuration =======
+# ===================================
+
 VERSION := $(shell git tag | tail -n1)
 BINARY_NAME = general-ledger-api
 BINARY_VERSIONED = ${BINARY_NAME}-${VERSION}
@@ -19,3 +23,18 @@ test:
 	rm coverage.txt
 
 .PHONY: start clean build run test
+
+# ====================================
+# ======= Docker Configuration =======
+# ====================================
+
+docker: docker-build
+	docker-compose up
+
+docker-build:
+	docker-compose build
+
+docker-clean:
+	docker-compose down
+
+.PHONY: docker docker-build docker-clean
