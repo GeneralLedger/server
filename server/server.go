@@ -1,6 +1,7 @@
 package server
 
 import (
+	"database/sql"
 	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
@@ -12,6 +13,7 @@ import (
 type Server struct {
 	Port   string
 	Router *httprouter.Router
+	DB     *sql.DB
 }
 
 // registerRoutes is responsible for wiring up all of our HandlerFunc
