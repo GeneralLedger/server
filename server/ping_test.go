@@ -14,9 +14,7 @@ func TestPingSuccess(t *testing.T) {
 	// Get a connection to the database
 	db, err := database.NewConnection(
 		os.Getenv("TEST_POSTGRES_URL"),
-		database.Config{
-			MigrationsDir: "./database/migrations",
-		},
+		database.Config{},
 	)
 	if err != nil {
 		panic(err)
