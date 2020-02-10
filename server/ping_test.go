@@ -13,7 +13,14 @@ import (
 func TestPingSuccess(t *testing.T) {
 	// Get a connection to the database
 	db, err := database.NewConnection(
-		os.Getenv("TEST_POSTGRES_URL"),
+		database.ConnectionInfo{
+			Host:         os.Getenv("TEST_POSTGRES_HOST"),
+			Port:         os.Getenv("TEST_POSTGRES_PORT"),
+			User:         os.Getenv("TEST_POSTGRES_USER"),
+			Password:     os.Getenv("TEST_POSTGRES_PASSWORD"),
+			DatabaseName: os.Getenv("TEST_POSTGRES_DB"),
+			SSLMode:      os.Getenv("TEST_POSTGRES_SSL_MODE"),
+		}.ToURI(),
 		database.Config{},
 	)
 	if err != nil {
