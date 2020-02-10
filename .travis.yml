@@ -1,7 +1,12 @@
 language: go
 go:
   - 1.12
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database general_ledger_test;' -U postgres
 script:
+  - pwd && ls
   - go test ./... -race -coverprofile=coverage.txt -covermode=atomic
 after_success:
   - bash <(curl -s https://codecov.io/bash)
