@@ -12,9 +12,14 @@ import (
 
 func TestPingSuccess(t *testing.T) {
 	// Get a connection to the database
-	db, err := sql.Open("postgres", os.Getenv("TEST_POSTGRES_URL"))
+	db, err := database.NewConnection(
+		os.Getenv("TEST_POSTGRES_URL"),
+		database.Config{
+			MigrationsDir: "./database/migrations",
+		},
+	)
 	if err != nil {
-		return nil, err
+		panic(err)
 	}
 
 	// Prepare Server

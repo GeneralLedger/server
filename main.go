@@ -11,7 +11,12 @@ import (
 func main() {
 	godotenv.Load()
 
-	db, err := database.MigratedDatabase(os.Getenv("POSTGRES_URL"))
+	db, err := database.NewConnection(
+		os.Getenv("POSTGRES_URL"),
+		database.Config{
+			MigrationsDir: "./database/migrations",
+		},
+	)
 	if err != nil {
 		panic(err)
 	}
