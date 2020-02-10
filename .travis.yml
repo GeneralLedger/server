@@ -1,6 +1,10 @@
 language: go
 go:
   - 1.12
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database general_ledger_test;' -U postgres
 script:
   - go test ./... -race -coverprofile=coverage.txt -covermode=atomic
 after_success:
