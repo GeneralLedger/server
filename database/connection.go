@@ -7,8 +7,6 @@ import (
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	_ "github.com/lib/pq"
-	"os"
-	"path/filepath"
 )
 
 func MigratedDatabase(databaseURI string) (*sql.DB, error) {
@@ -18,21 +16,13 @@ func MigratedDatabase(databaseURI string) (*sql.DB, error) {
 		return nil, err
 	}
 
-	// Determine directory of Migrations
-	ex, err := os.Executable()
-	if err != nil {
-		return nil, err
-	}
-	exPath := filepath.Dir(ex)
-	migrationsPath := exPath + "/database/migrations"
-
 	// Run our migrations against the database connection
 	driver, err := postgres.WithInstance(db, &postgres.Config{})
 	if err != nil {
 		return nil, err
 	}
 	dbMigrator, err := migrate.NewWithDatabaseInstance(
-		"file://"+migrationsPath,
+		"file://database/migrations",
 		"postgres",
 		driver,
 	)
