@@ -35,7 +35,9 @@ func TestPingSuccess(t *testing.T) {
 		response.Response{
 			StatusCode: 200,
 			StatusText: "OK",
-			Result:     "pong",
+			Result: map[string]interface{}{
+				"database_connection": "OK",
+			},
 		},
 		response.Parse(recorder.Result().Body),
 	)
